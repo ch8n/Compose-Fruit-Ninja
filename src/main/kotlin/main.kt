@@ -24,7 +24,6 @@ fun main() {
 
 class Scene {
 
-
     var sceneEntity = mutableStateListOf<SceneEntity>()
     private val rockets = mutableListOf<Rocket>()
     val particles = mutableMapOf<Int, List<Particle>>()
@@ -32,7 +31,7 @@ class Scene {
 
     fun setupScene() {
         sceneEntity.clear()
-        repeat(10) { id ->
+        repeat(5) { id ->
             val rocket = Rocket(id = id, coordinates = Triple(Window.WIDTH_VALUE, Window.HEIGHT_VALUE, 10f))
             rockets.add(rocket)
             val rocketParticle = mutableListOf<Particle>()

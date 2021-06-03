@@ -68,7 +68,7 @@ fun DrawScope.drawRocket(rocket: Rocket) {
     val (x, y, _) = rocket.coordinates
     drawCircle(
         color = rocket.color,
-        radius = 8f,
+        radius = (0..24).random().toFloat(),
         center = Offset(x, y)
     )
 }
@@ -81,6 +81,7 @@ data class Particle(
     var color: Color = randomColor()
 ) : SceneEntity() {
 
+    var alpha = 1f
     var isExplosionReset = false
     var canvasHeight: Float = 0f
     var canvasWidth: Float = 0f
@@ -90,7 +91,11 @@ data class Particle(
     }
 
     override fun update(scene: Scene) {
-        velocity += acceleartion
+        velocity += acceleartion.copy(
+            first = (-2..2).random().toFloat(),
+            second = (-2..2).random().toFloat()
+        )
+        alpha -= 0.01f
         coordinates += velocity
         acceleartion *= 0.0f
         if (isExplosionReset) {
@@ -101,6 +106,7 @@ data class Particle(
     override fun reset() {
         velocity = Triple(0f, 0f, 0f)
         acceleartion = Triple(0f, 0f, 0f)
+        alpha = 1f
         isExplosionReset = false
     }
 
@@ -115,8 +121,9 @@ fun DrawScope.drawParticles(particle: Particle) {
     val (x, y, _) = particle.coordinates
     drawCircle(
         color = particle.color,
-        radius = 3f,
-        center = Offset(x, y)
+        radius = (3..5).random().toFloat(),
+        center = Offset(x, y),
+        alpha = particle.alpha
     )
 }
 
