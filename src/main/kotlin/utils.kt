@@ -26,7 +26,7 @@ fun Preview(
     content: @Composable () -> Unit
 ) {
     Window(
-        title = "Compose-SpaceWars-Debug",
+        title = "Compose-FireWork-Debug",
         size = IntSize(Window.WIDTH, Window.HEIGHT),
         resizable = false,
         centered = true,
