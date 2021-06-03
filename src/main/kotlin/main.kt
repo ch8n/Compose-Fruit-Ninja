@@ -24,17 +24,24 @@ fun main() {
 
 class Scene {
 
-    private var sceneEntity = mutableStateListOf<SceneEntity>()
+
+    var sceneEntity = mutableStateListOf<SceneEntity>()
     private val rockets = mutableListOf<Rocket>()
-    private val gravity = Triple(0f,0.2f,0f)
+    val particles = mutableStateListOf<Particle>()
+    private val gravity = Triple(0f, 0.2f, 0f)
 
     fun setupScene() {
         sceneEntity.clear()
         repeat(1) {
-            val rocket = Rocket(coordinates = Triple(randomX(Window.WIDTH_VALUE), Window.HEIGHT_VALUE, 10f))
+            val rocket = Rocket(coordinates = Triple(Window.WIDTH_VALUE, Window.HEIGHT_VALUE, 10f))
             rockets.add(rocket)
         }
+        repeat(50) {
+            val particle = Particle()
+            particles.add(particle)
+        }
         sceneEntity.addAll(rockets)
+        sceneEntity.addAll(particles)
     }
 
     fun update() {
@@ -60,9 +67,14 @@ class Scene {
                     drawRocket(rocket)
                 }
 
+                for (particle in particles) {
+                    drawParticles(particle)
+                }
+
             }
         }
     }
 }
+
 
 

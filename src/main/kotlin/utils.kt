@@ -71,6 +71,11 @@ operator fun Triple<Float, Float, Float>.plus(that: Float): Triple<Float, Float,
     return Triple(this.first + that, this.second + that, this.third + that)
 }
 
+operator fun Triple<Float, Float, Float>.div(that: Float): Triple<Float, Float, Float> {
+    return this.copy(first / that, second / that, third / that)
+}
+
+
 
 
 
