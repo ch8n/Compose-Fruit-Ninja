@@ -1,6 +1,8 @@
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 sealed class SceneEntity {
     abstract fun update(scene: Scene)
@@ -8,7 +10,13 @@ sealed class SceneEntity {
 }
 
 fun randomX(canvasWidth: Float) = (0..canvasWidth.toInt()).random().toFloat()
-fun randomColor() = listOf<Color>(Color.Magenta, Color.Cyan, Color.Green, Color.Red, Color.Yellow).random()
+fun randomColor() = listOf<Color>(
+    Color(167, 215, 7),
+    Color(254, 191, 64),
+    Color(109, 89, 149),
+    Color(214, 68, 102),
+    Color(255, 137, 59)
+).random()
 
 data class Rocket(
     var id: Int,
@@ -17,7 +25,6 @@ data class Rocket(
     var acceleartion: Triple<Float, Float, Float> = Triple(0f, 0f, 0f),
     var color: Color = randomColor()
 ) : SceneEntity() {
-
     var canvasHeight: Float = 0f
     var canvasWidth: Float = 0f
 
@@ -29,8 +36,7 @@ data class Rocket(
         velocity += acceleartion
         coordinates += velocity
         acceleartion *= 0.0f
-        if (velocity.second > 0f) {
-            explode(scene)
+        if (coordinates.second >= canvasHeight) {
             reset()
         }
     }
@@ -48,6 +54,7 @@ data class Rocket(
                 }
             }
         }
+        reset()
     }
 
     override fun reset() {
@@ -95,7 +102,9 @@ data class Particle(
             first = (-2..2).random().toFloat(),
             second = (-2..2).random().toFloat()
         )
-        alpha -= 0.01f
+        if (alpha < 0) {
+            alpha -= 0.01f
+        }
         coordinates += velocity
         acceleartion *= 0.0f
         if (isExplosionReset) {
@@ -125,6 +134,24 @@ fun DrawScope.drawParticles(particle: Particle) {
         center = Offset(x, y),
         alpha = particle.alpha
     )
+}
+
+
+fun DrawScope.drawPlayer(mouseCoordinates: Pair<Float, Float>, rockets: List<Rocket>, onHit: (Rocket) -> Unit) {
+    val canvasWidth = size.width
+    val canvasHeight = size.height
+    val (x, y) = mouseCoordinates
+    val rocket = rockets.firstOrNull() {
+        val (rocketX, rocketY, _) = it.coordinates
+        val distance = sqrt((y - rocketY).toDouble().pow(2) + (x - rocketX).toDouble().pow(2))
+        println(distance < 50.0)
+        distance < 50.0
+    }
+    println(rocket.toString())
+    if (rocket != null) {
+        onHit(rocket)
+    }
+    drawCircle(color = Color.White, radius = 10f, center = Offset(x, y))
 }
 
 

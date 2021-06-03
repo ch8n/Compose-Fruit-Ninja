@@ -1,13 +1,20 @@
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.compose.material.Text
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerMoveFilter
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 fun main() {
 
@@ -58,28 +65,56 @@ class Scene {
 
     @Composable
     fun render(frameState: State<Long>) {
+        Box(modifier = Modifier.fillMaxSize()) {
 
-        Surface(color = Color.White) {
-            Canvas(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = Color.Black)
-            ) {
-                val stepFrame = frameState.value
+            var mousePosition by remember { mutableStateOf(0f to 0f) }
+            Surface(color = Color.White) {
+                Canvas(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color = Color.Black)
+                        .pointerMoveFilter(onMove = {
+                            val (x, y) = it
+                            mousePosition = mousePosition.copy(x, y)
+                            true
+                        }),
+                ) {
+                    val stepFrame = frameState.value
 
-                for ((index, rocket) in rockets.withIndex()) {
-                    rocket.applyForce(gravity)
-                    drawRocket(rocket)
-                    val rocketParticle = particles.get(index)
-                    rocketParticle?.forEach {
-                        it.applyForce(gravity)
-                        drawParticles(it)
+                    for ((index, rocket) in rockets.withIndex()) {
+
+                        rocket.applyForce(gravity)
+                        drawRocket(rocket)
+
+                        val rocketParticle = particles.get(index)
+                        rocketParticle?.forEach {
+                            it.applyForce(gravity)
+                            drawParticles(it)
+                        }
+
+                        drawPlayer(mousePosition, rockets) {
+                            it.explode(this@Scene)
+                        }
                     }
                 }
             }
+
+            Text(
+                text = "Chetan Ninja!",
+                modifier = Modifier
+                    .offset(y = 55.dp)
+                    .fillMaxWidth()
+                    .height(200.dp),
+                textAlign = TextAlign.Center,
+                fontSize = 85.sp,
+                color = Color.White,
+                style = MaterialTheme.typography.h1
+            )
         }
+
     }
 }
+
 
 
 

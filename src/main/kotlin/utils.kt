@@ -2,21 +2,18 @@ import androidx.compose.desktop.Window
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Paint
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.text.font.Typeface
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.platform.Font
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.jetbrains.skija.Bitmap
-import org.jetbrains.skija.IRect
-import org.jetbrains.skija.TextLine
-
 
 /**
  * To support instant preview (replacement for android's @Preview annotation)
@@ -31,7 +28,7 @@ fun Preview(
         resizable = false,
         centered = true,
     ) {
-        MaterialTheme() {
+        MaterialTheme(typography = Typography) {
             Surface(modifier = modifier.fillMaxSize()) {
                 content()
             }
@@ -74,6 +71,20 @@ operator fun Triple<Float, Float, Float>.plus(that: Float): Triple<Float, Float,
 operator fun Triple<Float, Float, Float>.div(that: Float): Triple<Float, Float, Float> {
     return this.copy(first / that, second / that, third / that)
 }
+
+
+val FruitNinja = FontFamily(
+    Font(resource = "fonts/ninja.ttf", weight = FontWeight.Normal, style = FontStyle.Normal),
+)
+
+val Typography = Typography(
+    h1 = TextStyle(
+        fontFamily = FruitNinja,
+        fontWeight = FontWeight.Normal,
+        fontSize = 24.sp,
+        color = Color.White
+    )
+)
 
 
 
