@@ -25,11 +25,16 @@ fun main() {
 class Scene {
 
     private var sceneEntity = mutableStateListOf<SceneEntity>()
+    private val rockets = mutableListOf<Rocket>()
+    private val gravity = Triple(0f,0.2f,0f)
 
     fun setupScene() {
         sceneEntity.clear()
-
-
+        repeat(1) {
+            val rocket = Rocket(coordinates = Triple(randomX(Window.WIDTH_VALUE), Window.HEIGHT_VALUE, 10f))
+            rockets.add(rocket)
+        }
+        sceneEntity.addAll(rockets)
     }
 
     fun update() {
@@ -50,6 +55,10 @@ class Scene {
             ) {
                 val stepFrame = frameState.value
 
+                for (rocket in rockets) {
+                    rocket.applyForce(gravity)
+                    drawRocket(rocket)
+                }
 
             }
         }

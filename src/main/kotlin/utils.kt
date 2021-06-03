@@ -59,3 +59,18 @@ fun Float.mapRange(fromRange: Pair<Float, Float>, toRange: Pair<Float, Float>): 
     return mappedValue
 }
 
+operator fun Triple<Float, Float, Float>.times(that: Float): Triple<Float, Float, Float> {
+    return Triple(this.first * that, this.second * that, this.third * that)
+}
+
+operator fun Triple<Float, Float, Float>.plus(that: Triple<Float, Float, Float>): Triple<Float, Float, Float> {
+    return Triple(this.first + that.first, this.second + that.second, this.third + that.third)
+}
+
+operator fun Triple<Float, Float, Float>.plus(that: Float): Triple<Float, Float, Float> {
+    return Triple(this.first + that, this.second + that, this.third + that)
+}
+
+
+
+
