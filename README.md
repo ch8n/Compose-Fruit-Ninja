@@ -11,7 +11,7 @@ FireWorks 🎆 and Celebrations 💥 on Jetpack Compose Desktop 🚀, using Canv
 <br>
 
 
-## other work
+## Other stuff I build
 - [Compose Space-Invaders 👾](https://github.com/ch8n/Compose-SpaceWars)
 - [3d Batman rain particle system](https://github.com/ch8n/Compose-Rain)
 - [3d Space StarWars logo](https://github.com/ch8n/Compose-Stars)
