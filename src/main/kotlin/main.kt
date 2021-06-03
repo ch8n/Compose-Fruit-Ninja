@@ -6,15 +6,11 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerMoveFilter
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 fun main() {
 
@@ -32,14 +28,14 @@ fun main() {
 class Scene {
 
     var sceneEntity = mutableStateListOf<SceneEntity>()
-    private val rockets = mutableListOf<Rocket>()
+    private val rockets = mutableListOf<Fruit>()
     val particles = mutableMapOf<Int, List<Particle>>()
     private val gravity = Triple(0f, 0.2f, 0f)
 
     fun setupScene() {
         sceneEntity.clear()
         repeat(5) { id ->
-            val rocket = Rocket(id = id, coordinates = Triple(Window.WIDTH_VALUE, Window.HEIGHT_VALUE, 10f))
+            val rocket = Fruit(id = id, coordinates = Triple(Window.WIDTH_VALUE, Window.HEIGHT_VALUE, 10f))
             rockets.add(rocket)
             val rocketParticle = mutableListOf<Particle>()
             repeat((25..100).random()) {
@@ -84,7 +80,7 @@ class Scene {
                     for ((index, rocket) in rockets.withIndex()) {
 
                         rocket.applyForce(gravity)
-                        drawRocket(rocket)
+                        drawFruit(rocket)
 
                         val rocketParticle = particles.get(index)
                         rocketParticle?.forEach {

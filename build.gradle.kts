@@ -7,7 +7,7 @@ plugins {
     id("org.jetbrains.compose") version "0.3.1"
 }
 
-group = "ch8n.compose.fireworks"
+group = "ch8n.compose.fruitNinja"
 version = "1.0"
 
 repositories {
@@ -29,7 +29,7 @@ compose.desktop {
         mainClass = "MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "Compose-Firework"
+            packageName = "Compose-Fruit-Ninja"
             packageVersion = "1.0.0"
         }
     }

@@ -1,5 +1,5 @@
-# Compose-FireWorks
-FireWorks 🎆 and Celebrations 💥 on Jetpack Compose Desktop 🚀, using Canvas API 🎨
+# Compose-Fruit-Ninja :kiwi_fruit: 
+Welcome Fruit Ninja on Jetpack Compose Desktop 🚀, using Canvas API 🎨
 
 ## How to Run
 - From gradle tab from right-hand side
@@ -7,14 +7,14 @@ FireWorks 🎆 and Celebrations 💥 on Jetpack Compose Desktop 🚀, using Canv
 
 ## Preview :movie_camera:
 <br>
-<img src="TODO"/>
+<img src="preview-fruit-ninja.gif"/>
 <br>
 
 
 ## Other stuff I build
 - [Compose Space-Invaders 👾](https://github.com/ch8n/Compose-SpaceWars)
-- [3d Batman rain particle system](https://github.com/ch8n/Compose-Rain)
-- [3d Space StarWars logo](https://github.com/ch8n/Compose-Stars)
+- [3d Batman rain particle system :bat:](https://github.com/ch8n/Compose-Rain)
+- [3d Space StarWars logo :alien:](https://github.com/ch8n/Compose-Stars)
 
 
 ## Built With 🛠

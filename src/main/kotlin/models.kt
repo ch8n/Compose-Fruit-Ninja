@@ -18,7 +18,7 @@ fun randomColor() = listOf<Color>(
     Color(255, 137, 59)
 ).random()
 
-data class Rocket(
+data class Fruit(
     var id: Int,
     var coordinates: Triple<Float, Float, Float> = Triple(0f, 0f, 0f),
     var velocity: Triple<Float, Float, Float> = Triple(0f, -1 * (8..15).random().toFloat(), 0f),
@@ -67,14 +67,14 @@ data class Rocket(
 }
 
 
-fun DrawScope.drawRocket(rocket: Rocket) {
+fun DrawScope.drawFruit(fruit: Fruit) {
     val canvasWidth = size.width
     val canvasHeight = size.height
-    rocket.canvasWidth = canvasWidth
-    rocket.canvasHeight = canvasHeight
-    val (x, y, _) = rocket.coordinates
+    fruit.canvasWidth = canvasWidth
+    fruit.canvasHeight = canvasHeight
+    val (x, y, _) = fruit.coordinates
     drawCircle(
-        color = rocket.color,
+        color = fruit.color,
         radius = (0..24).random().toFloat(),
         center = Offset(x, y)
     )
@@ -137,11 +137,11 @@ fun DrawScope.drawParticles(particle: Particle) {
 }
 
 
-fun DrawScope.drawPlayer(mouseCoordinates: Pair<Float, Float>, rockets: List<Rocket>, onHit: (Rocket) -> Unit) {
+fun DrawScope.drawPlayer(mouseCoordinates: Pair<Float, Float>, fruits: List<Fruit>, onHit: (Fruit) -> Unit) {
     val canvasWidth = size.width
     val canvasHeight = size.height
     val (x, y) = mouseCoordinates
-    val rocket = rockets.firstOrNull() {
+    val rocket = fruits.firstOrNull() {
         val (rocketX, rocketY, _) = it.coordinates
         val distance = sqrt((y - rocketY).toDouble().pow(2) + (x - rocketX).toDouble().pow(2))
         println(distance < 50.0)

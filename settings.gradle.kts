@@ -5,5 +5,5 @@ pluginManagement {
     }
     
 }
-rootProject.name = "Compose-Firework"
+rootProject.name = "Compose-Fruit-Ninja"
 
