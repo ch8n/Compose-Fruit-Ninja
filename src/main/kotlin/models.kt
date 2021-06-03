@@ -1,5 +1,5 @@
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 
 sealed class SceneEntity {
@@ -8,12 +8,6 @@ sealed class SceneEntity {
 }
 
 fun randomX(canvasWidth: Float) = (0..canvasWidth.toInt()).random().toFloat()
-fun randomValue(max: Int) = (1..max).random().toFloat()
-fun randomFallSpeed(z: Float) = z.mapRange(0f to 20f, 4f to 10f)
-fun randomY() = (-500..-50).random().toFloat()
-fun randomZ() = (1..10).random().toFloat()
-fun randomLength(z: Float) = z.mapRange(0f to 20f, 10f to 25f)
-fun randomThickness(z: Float) = z.mapRange(0f to 20f, 3f to 5f)
 fun randomColor() = listOf<Color>(Color.Magenta, Color.Cyan, Color.Green, Color.Red, Color.Yellow).random()
 
 data class Rocket(
@@ -43,10 +37,11 @@ data class Rocket(
 
     fun explode(scene: Scene) {
         scene.particles.forEach { particle ->
+            particle.isExplosionReset = true
             particle.color = color
             particle.coordinates = coordinates.copy(
-                first = coordinates.first,
-                second = coordinates.second
+                first = coordinates.first + (-100..50).random(),
+                second = coordinates.second + (-100..50).random(),
             )
         }
     }
@@ -77,11 +72,12 @@ fun DrawScope.drawRocket(rocket: Rocket) {
 
 data class Particle(
     var coordinates: Triple<Float, Float, Float> = Triple(0f, 0f, 0f),
-    var velocity: Triple<Float, Float, Float> = Triple((-5..2).random().toFloat(), (-3..2).random().toFloat(), 0f),
-    var acceleartion: Triple<Float, Float, Float> = Triple(2f, 2f, 0f),
+    var velocity: Triple<Float, Float, Float> = Triple(0f, -8f, 0f),
+    var acceleartion: Triple<Float, Float, Float> = Triple(0f, 0f, 0f),
     var color: Color = randomColor()
 ) : SceneEntity() {
 
+    var isExplosionReset = false
     var canvasHeight: Float = 0f
     var canvasWidth: Float = 0f
 
@@ -93,10 +89,15 @@ data class Particle(
         velocity += acceleartion
         coordinates += velocity
         acceleartion *= 0.0f
+        if (isExplosionReset) {
+            reset()
+        }
     }
 
     override fun reset() {
-
+        velocity = Triple(0f, 0f, 0f)
+        acceleartion = Triple(0f, 0f, 0f)
+        isExplosionReset = false
     }
 
 }

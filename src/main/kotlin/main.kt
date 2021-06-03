@@ -68,6 +68,7 @@ class Scene {
                 }
 
                 for (particle in particles) {
+                    particle.applyForce(gravity)
                     drawParticles(particle)
                 }
 
