@@ -27,21 +27,27 @@ class Scene {
 
     var sceneEntity = mutableStateListOf<SceneEntity>()
     private val rockets = mutableListOf<Rocket>()
-    val particles = mutableStateListOf<Particle>()
+    val particles = mutableMapOf<Int, List<Particle>>()
     private val gravity = Triple(0f, 0.2f, 0f)
 
     fun setupScene() {
         sceneEntity.clear()
-        repeat(1) {
-            val rocket = Rocket(coordinates = Triple(Window.WIDTH_VALUE, Window.HEIGHT_VALUE, 10f))
+        repeat(10) { id ->
+            val rocket = Rocket(id = id, coordinates = Triple(Window.WIDTH_VALUE, Window.HEIGHT_VALUE, 10f))
             rockets.add(rocket)
+            val rocketParticle = mutableListOf<Particle>()
+            repeat((25..100).random()) {
+                val particle = Particle()
+                rocketParticle.add(particle)
+            }
+            particles.put(id, rocketParticle)
         }
-        repeat(50) {
-            val particle = Particle()
-            particles.add(particle)
-        }
+
         sceneEntity.addAll(rockets)
-        sceneEntity.addAll(particles)
+        particles.values.forEach { rocketParticles ->
+            sceneEntity.addAll(rocketParticles)
+        }
+
     }
 
     fun update() {
@@ -62,16 +68,15 @@ class Scene {
             ) {
                 val stepFrame = frameState.value
 
-                for (rocket in rockets) {
+                for ((index, rocket) in rockets.withIndex()) {
                     rocket.applyForce(gravity)
                     drawRocket(rocket)
+                    val rocketParticle = particles.get(index)
+                    rocketParticle?.forEach {
+                        it.applyForce(gravity)
+                        drawParticles(it)
+                    }
                 }
-
-                for (particle in particles) {
-                    particle.applyForce(gravity)
-                    drawParticles(particle)
-                }
-
             }
         }
     }

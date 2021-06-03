@@ -11,6 +11,7 @@ fun randomX(canvasWidth: Float) = (0..canvasWidth.toInt()).random().toFloat()
 fun randomColor() = listOf<Color>(Color.Magenta, Color.Cyan, Color.Green, Color.Red, Color.Yellow).random()
 
 data class Rocket(
+    var id: Int,
     var coordinates: Triple<Float, Float, Float> = Triple(0f, 0f, 0f),
     var velocity: Triple<Float, Float, Float> = Triple(0f, -1 * (8..15).random().toFloat(), 0f),
     var acceleartion: Triple<Float, Float, Float> = Triple(0f, 0f, 0f),
@@ -28,7 +29,6 @@ data class Rocket(
         velocity += acceleartion
         coordinates += velocity
         acceleartion *= 0.0f
-        val (x, y, z) = coordinates
         if (velocity.second > 0f) {
             explode(scene)
             reset()
@@ -36,13 +36,17 @@ data class Rocket(
     }
 
     fun explode(scene: Scene) {
-        scene.particles.forEach { particle ->
-            particle.isExplosionReset = true
-            particle.color = color
-            particle.coordinates = coordinates.copy(
-                first = coordinates.first + (-100..50).random(),
-                second = coordinates.second + (-100..50).random(),
-            )
+        scene.particles.forEach { (id, rocketParticles) ->
+            if (this.id == id) {
+                rocketParticles.forEach { particle ->
+                    particle.isExplosionReset = true
+                    particle.color = color
+                    particle.coordinates = coordinates.copy(
+                        first = coordinates.first + (-100..100).random(),
+                        second = coordinates.second + (-100..100).random(),
+                    )
+                }
+            }
         }
     }
 
