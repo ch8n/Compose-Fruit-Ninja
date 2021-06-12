@@ -1,6 +1,9 @@
 # Compose-Fruit-Ninja :kiwi_fruit: 
 Welcome Fruit Ninja on Jetpack Compose Desktop 🚀, using Canvas API 🎨
 
+## Featured on
+- [jetc-dev](https://www.getrevue.co/profile/jetc/issues/jetc-dev-newsletter-issue-68-639848)
+
 ## How to Run
 - From gradle tab from right-hand side
     - Select compose desktop => select `run`
