@@ -42,9 +42,9 @@ data class Fruit(
     }
 
     fun explode(scene: Scene) {
-        scene.particles.forEach { (id, rocketParticles) ->
+        scene.particles.forEach { (id, fruitParticles) ->
             if (this.id == id) {
-                rocketParticles.forEach { particle ->
+                fruitParticles.forEach { particle ->
                     particle.isExplosionReset = true
                     particle.color = color
                     particle.coordinates = coordinates.copy(
@@ -141,15 +141,14 @@ fun DrawScope.drawPlayer(mouseCoordinates: Pair<Float, Float>, fruits: List<Frui
     val canvasWidth = size.width
     val canvasHeight = size.height
     val (x, y) = mouseCoordinates
-    val rocket = fruits.firstOrNull() {
-        val (rocketX, rocketY, _) = it.coordinates
-        val distance = sqrt((y - rocketY).toDouble().pow(2) + (x - rocketX).toDouble().pow(2))
+    val fruit = fruits.firstOrNull() {
+        val (fruitX, fruitY, _) = it.coordinates
+        val distance = sqrt((y - fruitY).toDouble().pow(2) + (x - fruitX).toDouble().pow(2))
         println(distance < 50.0)
         distance < 50.0
     }
-    println(rocket.toString())
-    if (rocket != null) {
-        onHit(rocket)
+    if (fruit != null) {
+        onHit(fruit)
     }
     drawCircle(color = Color.White, radius = 10f, center = Offset(x, y))
 }

@@ -28,26 +28,26 @@ fun main() {
 class Scene {
 
     var sceneEntity = mutableStateListOf<SceneEntity>()
-    private val rockets = mutableListOf<Fruit>()
+    private val fruits = mutableListOf<Fruit>()
     val particles = mutableMapOf<Int, List<Particle>>()
     private val gravity = Triple(0f, 0.2f, 0f)
 
     fun setupScene() {
         sceneEntity.clear()
         repeat(5) { id ->
-            val rocket = Fruit(id = id, coordinates = Triple(Window.WIDTH_VALUE, Window.HEIGHT_VALUE, 10f))
-            rockets.add(rocket)
-            val rocketParticle = mutableListOf<Particle>()
+            val fruit = Fruit(id = id, coordinates = Triple(Window.WIDTH_VALUE, Window.HEIGHT_VALUE, 10f))
+            fruits.add(fruit)
+            val fruitParticle = mutableListOf<Particle>()
             repeat((25..100).random()) {
                 val particle = Particle()
-                rocketParticle.add(particle)
+                fruitParticle.add(particle)
             }
-            particles.put(id, rocketParticle)
+            particles.put(id, fruitParticle)
         }
 
-        sceneEntity.addAll(rockets)
-        particles.values.forEach { rocketParticles ->
-            sceneEntity.addAll(rocketParticles)
+        sceneEntity.addAll(fruits)
+        particles.values.forEach { fruitParticles ->
+            sceneEntity.addAll(fruitParticles)
         }
 
     }
@@ -77,7 +77,7 @@ class Scene {
                 ) {
                     val stepFrame = frameState.value
 
-                    for ((index, rocket) in rockets.withIndex()) {
+                    for ((index, rocket) in fruits.withIndex()) {
 
                         rocket.applyForce(gravity)
                         drawFruit(rocket)
@@ -88,7 +88,7 @@ class Scene {
                             drawParticles(it)
                         }
 
-                        drawPlayer(mousePosition, rockets) {
+                        drawPlayer(mousePosition, fruits) {
                             it.explode(this@Scene)
                         }
                     }
