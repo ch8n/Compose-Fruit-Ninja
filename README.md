@@ -3,6 +3,7 @@ Welcome Fruit Ninja on Jetpack Compose Desktop 🚀, using Canvas API 🎨
 
 ## Featured on
 - [jetc-dev](https://www.getrevue.co/profile/jetc/issues/jetc-dev-newsletter-issue-68-639848)
+- [Compose-Digest#20](https://mailchi.mp/1b28b703ebe7/compose-digest-13394967?e=0e22c92d24)
 
 ## How to Run
 - From gradle tab from right-hand side
